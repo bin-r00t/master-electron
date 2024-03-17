@@ -1,6 +1,6 @@
 // Modules
 const { app, BrowserWindow } = require("electron");
-let mainWindow;
+let mainWindow, childWin;
 
 function createWindow() {
   mainWindow = new BrowserWindow({
@@ -13,12 +13,33 @@ function createWindow() {
       contextIsolation: false,
       nodeIntegration: true,
       // show: false,
-      backgroundColor: '#2b2e3b'
+      // backgroundColor: '#2b2e3b'
     },
   });
+  childWin = new BrowserWindow({
+    width: 800,
+    height: 400,
+    webPreferences: {
+      nodeIntegration: true,
+    },
+    parent: mainWindow,
+    show: false,
+    modal: true,
+  });
 
+  // childWin.loadFile();
   mainWindow.loadFile("index.html");
+  childWin.loadFile("index.html");
+  // childWin.loadURL("https://www.baidu.com");
   // mainWindow.loadURL('https://www.baidu.com/')
+
+  setTimeout(() => {
+    childWin.show();
+    setTimeout(() => {
+      childWin.close();
+      childWin = null;
+    }, 2000); 
+  }, 1000);
 
   // Open DevTools - Remove for PRODUCTION!
   // mainWindow.webContents.openDevTools();
