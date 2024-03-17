@@ -6,6 +6,8 @@ function createWindow() {
   mainWindow = new BrowserWindow({
     width: 1000,
     height: 800,
+    frame: false,
+    titleBarStyle: 'hidden',
     webPreferences: {
       // --- !! IMPORTANT !! ---
       // Disable 'contextIsolation' to allow 'nodeIntegration'
@@ -16,30 +18,11 @@ function createWindow() {
       // backgroundColor: '#2b2e3b'
     },
   });
-  childWin = new BrowserWindow({
-    width: 800,
-    height: 400,
-    webPreferences: {
-      nodeIntegration: true,
-    },
-    parent: mainWindow,
-    show: false,
-    modal: true,
-  });
 
   // childWin.loadFile();
   mainWindow.loadFile("index.html");
-  childWin.loadFile("index.html");
   // childWin.loadURL("https://www.baidu.com");
   // mainWindow.loadURL('https://www.baidu.com/')
-
-  setTimeout(() => {
-    childWin.show();
-    setTimeout(() => {
-      childWin.close();
-      childWin = null;
-    }, 2000); 
-  }, 1000);
 
   // Open DevTools - Remove for PRODUCTION!
   // mainWindow.webContents.openDevTools();
