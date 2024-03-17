@@ -1,23 +1,7 @@
 // Modules
 const { app, BrowserWindow } = require("electron");
-
-// Keep a global reference of the window object, if you don't, the window will
-// be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
 
-console.log("App isready: ", app.isReady());
-setTimeout(() => {
-  console.log("App isready: ", app.isReady());
-}, 1000);
-
-// user paths
-console.log(app.getPath('userData'));
-console.log(app.getPath('desktop'));
-console.log(app.getPath('temp'));
-console.log(app.getPath('cache'));
-
-
-// Create a new BrowserWindow when `app` is ready
 function createWindow() {
   mainWindow = new BrowserWindow({
     width: 1000,
@@ -28,16 +12,22 @@ function createWindow() {
       // 'contextIsolation' defaults to "true" as from Electron v12
       contextIsolation: false,
       nodeIntegration: true,
+      // show: false,
+      backgroundColor: '#2b2e3b'
     },
   });
 
-  // Load index.html into the new BrowserWindow
   mainWindow.loadFile("index.html");
+  // mainWindow.loadURL('https://www.baidu.com/')
 
   // Open DevTools - Remove for PRODUCTION!
-  mainWindow.webContents.openDevTools();
+  // mainWindow.webContents.openDevTools();
 
-  // Listen for window being closed
+  // listen events..
+  // mainWindow.once('ready-to-show', () => {
+  //   mainWindow.show()
+  // }); // or
+  // mainWindow.once('ready-to-show', mainWindow.show);
   mainWindow.on("closed", () => {
     mainWindow = null;
   });
